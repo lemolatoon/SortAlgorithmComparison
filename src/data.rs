@@ -1,47 +1,65 @@
-use std::{cell::RefCell, rc::Rc};
-
 use crate::counter::Counter;
 
-pub struct Data<T: Clone + Eq + Ord> {
-    value: T,
-    counter: Rc<RefCell<Counter>>,
+#[derive(Clone)]
+pub struct ArrayWrapper<T: Clone + Eq + Ord> {
+    array: Vec<T>,
+    counter: Counter,
 }
 
-impl<T: Clone + Eq + Ord> Data<T> {
-    pub fn new(value: T, counter: Rc<RefCell<Counter>>) -> Self {
-        Self { value, counter }
+#[derive(Debug)]
+pub struct ValueWrapper<'a, T: Clone + Eq + Ord> {
+    v: &'a T,
+    counter: &'a Counter,
+}
+
+impl<'a, T: Clone + Eq + Ord> PartialEq for ValueWrapper<'a, T> {
+    fn eq(&self, other: &Self) -> bool {
+        self.counter.inclement_compare();
+        self.v == other.v
     }
 }
 
-impl<T: Clone + Eq + Ord> Clone for Data<T> {
-    fn clone(&self) -> Self {
-        self.counter.borrow_mut().inclement_clone();
+impl<'a, T: Clone + Eq + Ord> Eq for ValueWrapper<'a, T> {}
+impl<'a, T: Clone + Eq + Ord> PartialOrd for ValueWrapper<'a, T> {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+impl<'a, T: Clone + Eq + Ord> Ord for ValueWrapper<'a, T> {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        self.counter.inclement_compare();
+        self.v.cmp(other.v)
+    }
+}
+
+impl<T: Clone + Eq + Ord> ArrayWrapper<T> {
+    pub fn new(array: Vec<T>) -> Self {
         Self {
-            value: self.value.clone(),
-            counter: Rc::clone(&self.counter),
+            array,
+            counter: Counter::new(),
         }
     }
-}
-
-impl<T: Clone + Eq + Ord> PartialEq for Data<T> {
-    fn eq(&self, other: &Self) -> bool {
-        self.counter.borrow_mut().inclement_compare();
-        self.value == other.value
+    pub fn swap(&mut self, i: usize, j: usize) {
+        self.counter.inclement_swap();
+        self.array.swap(i, j);
     }
-}
 
-impl<T: Clone + Eq + Ord> Eq for Data<T> {}
-
-impl<T: Clone + Eq + Ord> PartialOrd for Data<T> {
-    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        self.counter.borrow_mut().inclement_compare();
-        self.value.partial_cmp(&other.value)
+    pub fn len(&self) -> usize {
+        self.array.len()
     }
-}
 
-impl<T: Clone + Eq + Ord> Ord for Data<T> {
-    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
-        self.counter.borrow_mut().inclement_compare();
-        self.value.cmp(&other.value)
+    pub fn is_empty(&self) -> bool {
+        self.array.is_empty()
+    }
+
+    pub fn counter(&self) -> &Counter {
+        &self.counter
+    }
+
+    pub fn get(&self, i: usize) -> ValueWrapper<T> {
+        ValueWrapper {
+            v: &self.array[i],
+            counter: &self.counter,
+        }
     }
 }
