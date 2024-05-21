@@ -6,11 +6,27 @@ use data::ArrayWrapper;
 use rand::distributions::Uniform;
 use rand::prelude::*;
 
+fn sort_evaluator<T: Clone + Ord + Eq>(
+    array: &mut ArrayWrapper<T>,
+    f: impl FnOnce(&mut ArrayWrapper<T>),
+) {
+    let start = std::time::Instant::now();
+    f(array);
+    let end = start.elapsed();
+    println!(
+        "{}.{:010} sec\nswap_counter: {},\tcompare_counter: {}",
+        end.as_secs(),
+        end.subsec_nanos() / 1_000_000,
+        array.counter().swap_counter(),
+        array.counter().compare_counter()
+    );
+}
+
 fn main() {
-    let n = 500;
+    let n = 50000;
     let mut array = Vec::with_capacity(n);
     let seed = 42;
-    let uniform = Uniform::from(0..100000);
+    let uniform = Uniform::from(usize::MIN..=usize::MAX);
     let mut rng = rand::rngs::StdRng::seed_from_u64(seed);
     for _ in 0..n {
         let value = uniform.sample(&mut rng);
@@ -19,12 +35,13 @@ fn main() {
     let array = ArrayWrapper::new(array);
     array.counter().reset_counter();
     {
+        println!("Quick Sort!");
         let mut array = array.clone();
-        sorting::quick(&mut array);
-        println!(
-            "quick sort: swap_counter: {}, compare_counter: {}",
-            array.counter().swap_counter(),
-            array.counter().compare_counter()
-        );
+        sort_evaluator(&mut array, sorting::quick);
+    }
+    {
+        println!("Insertion Sort!");
+        let mut array = array.clone();
+        sort_evaluator(&mut array, sorting::insertion);
     }
 }
