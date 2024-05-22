@@ -1,8 +1,10 @@
 pub mod insertion;
 pub mod quick;
+pub mod shell;
 
 pub use insertion::insertion;
 pub use quick::quick;
+pub use shell::shell;
 
 #[cfg(test)]
 mod tests {
@@ -35,4 +37,5 @@ mod tests {
 
     check!(quick_test, quick);
     check!(insertion_test, insertion);
+    check!(shell_test, shell);
 }
