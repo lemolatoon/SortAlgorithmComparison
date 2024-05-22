@@ -1,5 +1,6 @@
 pub mod insertion;
 pub mod quick;
+pub mod radix;
 pub mod shell;
 
 pub use insertion::insertion;
