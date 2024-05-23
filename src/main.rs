@@ -58,7 +58,44 @@ fn main() {
         }
     }
 
-    println!("Data length: {}", array.len());
+    for i in [100, 1000, 10000, 100000] {
+        let array: Vec<u16> = array.clone().into_iter().take(i).collect();
+        println!("\n==========Data length: {}==========\n", array.len());
+
+        let array = ArrayWrapper::new(array);
+        array.counter().reset_counter();
+        {
+            println!("Radix Sort!");
+            let mut array = array.clone();
+            sort_evaluator(&mut array, sorting::radix2);
+        }
+        {
+            println!("Quick Sort!");
+            let mut array = array.clone();
+            sort_evaluator(&mut array, sorting::quick);
+        }
+        {
+            println!("Heap Sort!");
+            let mut array = array.clone();
+            sort_evaluator(&mut array, sorting::heap);
+        }
+        {
+            println!("Shell Sort!");
+            let mut array = array.clone();
+            sort_evaluator(&mut array, sorting::shell);
+        }
+        {
+            println!("Insertion Sort!");
+            let mut array = array.clone();
+            sort_evaluator(&mut array, sorting::insertion);
+        }
+        {
+            println!("Bubble Sort!");
+            let mut array = array.clone();
+            sort_evaluator(&mut array, sorting::bubble);
+        }
+    }
+    println!("\n==========Data length: {}==========\n", array.len());
 
     let array = ArrayWrapper::new(array);
     array.counter().reset_counter();

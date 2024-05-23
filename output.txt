@@ -1,0 +1,135 @@
+
+==========Data length: 100==========
+
+Radix Sort!
+0.000001291 sec
+swap_counter: 0
+compare_counter: 0
+Quick Sort!
+0.000002542 sec
+swap_counter: 202
+compare_counter: 803
+Heap Sort!
+0.000002167 sec
+swap_counter: 99
+compare_counter: 947
+Shell Sort!
+0.000001666 sec
+swap_counter: 255
+compare_counter: 554
+Insertion Sort!
+0.000003459 sec
+swap_counter: 2416
+compare_counter: 2506
+Bubble Sort!
+0.000005041 sec
+swap_counter: 2416
+compare_counter: 4950
+
+==========Data length: 1000==========
+
+Radix Sort!
+0.000004917 sec
+swap_counter: 0
+compare_counter: 0
+Quick Sort!
+0.000023625 sec
+swap_counter: 3151
+compare_counter: 11758
+Heap Sort!
+0.00001975 sec
+swap_counter: 999
+compare_counter: 15980
+Shell Sort!
+0.000029666 sec
+swap_counter: 6846
+compare_counter: 11984
+Insertion Sort!
+0.000302083 sec
+swap_counter: 215759
+compare_counter: 216749
+Bubble Sort!
+0.000463833 sec
+swap_counter: 215759
+compare_counter: 499500
+
+==========Data length: 10000==========
+
+Radix Sort!
+0.000048667 sec
+swap_counter: 0
+compare_counter: 0
+Quick Sort!
+0.000243083 sec
+swap_counter: 42835
+compare_counter: 158672
+Heap Sort!
+0.000224041 sec
+swap_counter: 9999
+compare_counter: 233308
+Shell Sort!
+0.000389 sec
+swap_counter: 113371
+compare_counter: 185888
+Insertion Sort!
+0.031229291 sec
+swap_counter: 24081457
+compare_counter: 24091447
+Bubble Sort!
+0.042785416 sec
+swap_counter: 24081457
+compare_counter: 49995000
+
+==========Data length: 100000==========
+
+Radix Sort!
+0.000431875 sec
+swap_counter: 0
+compare_counter: 0
+Quick Sort!
+0.002269541 sec
+swap_counter: 580011
+compare_counter: 1904283
+Heap Sort!
+0.002837541 sec
+swap_counter: 99999
+compare_counter: 2978557
+Shell Sort!
+0.005198125 sec
+swap_counter: 1956711
+compare_counter: 2886498
+Insertion Sort!
+3.060204209 sec
+swap_counter: 2478613859
+compare_counter: 2478713849
+Bubble Sort!
+4.485039292 sec
+swap_counter: 2478613859
+compare_counter: 4999950000
+
+==========Data length: 183989==========
+
+Radix Sort!
+0.000862583 sec
+swap_counter: 0
+compare_counter: 0
+Quick Sort!
+0.004206 sec
+swap_counter: 1150828
+compare_counter: 3530363
+Heap Sort!
+0.005552125 sec
+swap_counter: 183988
+compare_counter: 5809609
+Shell Sort!
+0.010549542 sec
+swap_counter: 3946058
+compare_counter: 5759286
+Insertion Sort!
+10.079532542 sec
+swap_counter: 8070091312
+compare_counter: 8070275291
+Bubble Sort!
+15.727750125 sec
+swap_counter: 8070091312
+compare_counter: 16925884066
