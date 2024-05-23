@@ -5,6 +5,7 @@ pub mod shell;
 
 pub use insertion::insertion;
 pub use quick::quick;
+pub use radix::radix;
 pub use shell::shell;
 
 #[cfg(test)]
@@ -42,4 +43,5 @@ mod tests {
     check!(quick_test, quick);
     check!(insertion_test, insertion);
     check!(shell_test, shell);
+    check!(radix_test, radix, u8);
 }

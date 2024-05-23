@@ -30,6 +30,16 @@ impl<'a, T: Clone + Eq + Ord> PartialEq for ValueRef<'a, T> {
     }
 }
 
+impl<'a, T: Copy + Clone + Eq + Ord> ValueRef<'a, T> {
+    pub fn into_raw<U>(&self) -> U
+    where
+        U: From<T>,
+    {
+        let t = *self.v;
+        t.into()
+    }
+}
+
 #[derive(Debug)]
 pub struct OwnedValue<T: Clone + Eq + Ord> {
     v: T,
@@ -101,5 +111,9 @@ impl<T: Clone + Eq + Ord> ArrayWrapper<T> {
             v: &self.array[i],
             counter: &self.counter,
         }
+    }
+
+    pub fn set(&mut self, i: usize, v: T) {
+        self.array[i] = v;
     }
 }

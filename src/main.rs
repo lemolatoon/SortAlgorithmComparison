@@ -14,7 +14,7 @@ fn sort_evaluator<T: Clone + Ord + Eq>(
     f(array);
     let end = start.elapsed();
     println!(
-        "{}.{:010} sec\nswap_counter: {},\tcompare_counter: {}",
+        "{}.{:020} sec\nswap_counter: {},\tcompare_counter: {}",
         end.as_secs(),
         end.subsec_nanos() / 1_000_000,
         array.counter().swap_counter(),
@@ -23,10 +23,10 @@ fn sort_evaluator<T: Clone + Ord + Eq>(
 }
 
 fn main() {
-    let n = 50000;
+    let n = 5000000;
     let mut array = Vec::with_capacity(n);
     let seed = 42;
-    let uniform = Uniform::from(usize::MIN..=usize::MAX);
+    let uniform = Uniform::from(u8::MIN..=u8::MAX);
     let mut rng = rand::rngs::StdRng::seed_from_u64(seed);
     for _ in 0..n {
         let value = uniform.sample(&mut rng);
@@ -38,6 +38,16 @@ fn main() {
         println!("Quick Sort!");
         let mut array = array.clone();
         sort_evaluator(&mut array, sorting::quick);
+    }
+    {
+        println!("Shell Sort!");
+        let mut array = array.clone();
+        sort_evaluator(&mut array, sorting::shell);
+    }
+    {
+        println!("Radix Sort!");
+        let mut array = array.clone();
+        sort_evaluator(&mut array, sorting::radix);
     }
     {
         println!("Insertion Sort!");
