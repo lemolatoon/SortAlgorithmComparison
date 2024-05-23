@@ -13,12 +13,12 @@ pub fn construct_heap<T: std::fmt::Debug + Clone + Eq + Ord>(
         }
 
         let l_right_child = l_left_child + 1;
-        let larger_child;
-        if l_left_child != r && array.get(l_right_child) > array.get(l_left_child) {
-            larger_child = l_right_child;
-        } else {
-            larger_child = l_left_child;
-        }
+        let larger_child =
+            if l_left_child != r && array.get(l_right_child) > array.get(l_left_child) {
+                l_right_child
+            } else {
+                l_left_child
+            };
         if v.to_ref(array.counter()) >= array.get(larger_child) {
             break;
         }
