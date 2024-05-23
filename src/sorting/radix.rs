@@ -15,3 +15,34 @@ pub fn radix(array: &mut ArrayWrapper<u8>) {
         }
     }
 }
+
+pub fn radix2(array: &mut ArrayWrapper<u16>) {
+    let mut count: [usize; 256] = [0; 256];
+    let mut output: Vec<u16> = vec![0; array.len()];
+
+    for &num in array.iter() {
+        count[(num & 0xFF) as usize] += 1;
+    }
+    for i in 1..256 {
+        count[i] += count[i - 1];
+    }
+    for &num in array.iter().rev() {
+        count[(num & 0xFF) as usize] -= 1;
+        output[count[(num & 0xFF) as usize]] = num;
+    }
+    array.swap_with_slice(&mut output);
+
+    count = [0; 256];
+
+    for &num in array.iter() {
+        count[(num >> 8 & 0xFF) as usize] += 1;
+    }
+    for i in 1..256 {
+        count[i] += count[i - 1];
+    }
+    for &num in array.iter().rev() {
+        count[(num >> 8 & 0xFF) as usize] -= 1;
+        output[count[(num >> 8 & 0xFF) as usize]] = num;
+    }
+    array.swap_with_slice(&mut output);
+}

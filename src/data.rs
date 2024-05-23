@@ -81,7 +81,7 @@ impl<T: Clone + Eq + Ord> ArrayWrapper<T> {
             counter: Counter::new(),
         }
     }
-    pub fn iter(&self) -> impl Iterator<Item = &T> {
+    pub fn iter(&self) -> impl DoubleEndedIterator<Item = &T> {
         self.array.iter()
     }
     pub fn into_inner(self) -> (Vec<T>, Counter) {
@@ -115,5 +115,9 @@ impl<T: Clone + Eq + Ord> ArrayWrapper<T> {
 
     pub fn set(&mut self, i: usize, v: T) {
         self.array[i] = v;
+    }
+
+    pub fn swap_with_slice(&mut self, other: &mut [T]) {
+        self.array.swap_with_slice(other);
     }
 }
