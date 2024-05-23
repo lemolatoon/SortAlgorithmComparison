@@ -30,12 +30,12 @@ impl<'a, T: Clone + Eq + Ord> PartialEq for ValueRef<'a, T> {
     }
 }
 
-impl<'a, T: Copy + Clone + Eq + Ord> ValueRef<'a, T> {
+impl<'a, T: Clone + Eq + Ord> ValueRef<'a, T> {
     pub fn into_raw<U>(&self) -> U
     where
         U: From<T>,
     {
-        let t = *self.v;
+        let t = self.v.clone();
         t.into()
     }
 }

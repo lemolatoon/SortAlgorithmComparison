@@ -1,8 +1,12 @@
+pub mod bubble;
+pub mod heap;
 pub mod insertion;
 pub mod quick;
 pub mod radix;
 pub mod shell;
 
+pub use bubble::bubble;
+pub use heap::heap;
 pub use insertion::insertion;
 pub use quick::quick;
 pub use radix::{radix, radix2};
@@ -43,6 +47,8 @@ mod tests {
     check!(quick_test, quick);
     check!(insertion_test, insertion);
     check!(shell_test, shell);
+    check!(bubble_test, bubble);
+    check!(heap_test, heap);
     check!(radix_test_u8, radix, u8);
     check!(radix_test_u16, radix2, u16);
 }
