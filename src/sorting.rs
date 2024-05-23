@@ -16,16 +16,19 @@ mod tests {
 
     macro_rules! check {
         ($name:ident, $sort_f:ident) => {
+            check!($name, $sort_f, usize);
+        };
+        ($name:ident, $sort_f:ident, $type:ty) => {
             #[test]
             fn $name() {
-                let mut array = Vec::<usize>::with_capacity(N);
+                let mut array = Vec::<$type>::with_capacity(N);
                 for _ in 0..N {
                     array.push(rand::random());
                 }
                 let mut array = ArrayWrapper::new(array);
 
                 $sort_f(&mut array);
-                let mut prev_opt: Option<usize> = None;
+                let mut prev_opt: Option<$type> = None;
                 for elm in array.into_inner().0 {
                     if let Some(prev) = prev_opt {
                         assert!(prev <= elm, "prev({}) <= elm({}) failed.", prev, elm);
